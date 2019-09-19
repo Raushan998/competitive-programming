@@ -1,28 +1,25 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-int dp[1000][1000]={-1};
-int coin_change(int arr[],int capacity,int num){
-    if(capacity==0)
-        return 1;
-    if(capacity<0)
-       return 0;
-    if(capacity>0 && num<0)
+const long long N=1e3;
+long long A[N],n;
+long long vis[N][N],dp[N][N];
+long long fasterways(long long pos,long long s){
+    if(pos==n)
+        return s==0;
+    if(s<0)
         return 0;
-    if(dp[num][capacity]!=-1){
-        return dp[num][capacity];
-    }
-    dp[num][capacity]=coin_change(arr,capacity,num-1)+coin_change(arr,capacity-arr[num-1],num);
+    long long &ans=dp[pos][s];
+    if(vis[pos][s])
+       return ans;
+    vis[pos][s]=1;
+    ans=0;
+    ans=fasterways(pos,s-A[pos])+fasterways(pos+1,s);
+    return ans;
 }
 int main(){
-    int capacity,n;
-    cin>>capacity>>n;
-    int arr[n];
-    for(int i=0;i<n;i++)
-       cin>>arr[i];
-   for(int i=0;i<n+1;i++){
-      for(int j=0;j<=capacity;j++)
-          dp[i][j]=-1;
-   }
-   cout<<coin_change(arr,capacity,n)<<endl;
-    return 0;
+    long long i,s;
+    cin>>s>>n;
+    for(i=0;i<n;i++)
+        cin>>A[i];
+    cout<<fasterways(0,s)<<endl;
 }
