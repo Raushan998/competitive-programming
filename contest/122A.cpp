@@ -8,21 +8,13 @@ int main(){
         long long n;
         cin>>n;
         long long sum=0;
-        long long arr[1000001];
+        long long t;
         for(int i=0;i<n;i++){
-            cin>>arr[i];
-            sum+=arr[i];
+            cin>>t;
+            sum+=t;
         }
-        sort(arr,arr+n);
-        long long price=0;
-        for(int i=0;i<n;i++){
-            price=arr[i];
-            price*=n;
-            if(price>=sum){
-               cout<<price/n<<endl;
-               break;
-             }
-         }
+        if(sum%n)cout<<(sum+n-1)/n<<endl;
+        else cout<<sum/n<<endl;
       }
       return 0;
 }
